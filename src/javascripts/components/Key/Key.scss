@@ -4,6 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.2s;
 
   &__name {
     font-family: bold;

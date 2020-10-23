@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -6,14 +5,13 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
-  // entry: "./src/javascripts/main.ts",
   entry: "./src/javascripts/index.tsx",
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "./javascripts/main.js",
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", "mp3"],
   },
   module: {
     rules: [
@@ -60,13 +58,13 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)/,
+        test: /\.(png|jpe?g|gif|mp3)/,
         use: [
           {
             loader: "file-loader",
             options: {
               esModule: false,
-              name: "images/[name].[ext]",
+              name: "medias/[name].[ext]",
             },
           },
         ],
