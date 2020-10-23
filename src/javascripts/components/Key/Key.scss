@@ -1,11 +1,12 @@
-.Key {
+.key {
   border-radius: 100%;
   border: 1px solid #000000;
-  width: 100px;
-  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__name {
+    font-family: bold;
     text-align: center;
-    color: red;
   }
 }
