@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+  },
+  "paths": {
+    "http://*": [
+      "../../../.deno/deps/http/*"
+    ],
+    "https://*": [
+      "../../../.deno/deps/https/*"
+    ],
+    "*.ts": [
+      "*"
+    ]
+  }
+}
