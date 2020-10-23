@@ -6,13 +6,14 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
-  entry: "./src/javascripts/main.ts",
+  // entry: "./src/javascripts/main.ts",
+  entry: "./src/javascripts/index.tsx",
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "./javascripts/main.js",
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
   module: {
     rules: [
@@ -32,7 +33,10 @@ module.exports = {
           {
             loader: "babel-loader",
             options: {
-              presets: [["@babel/preset-env", { targets: ">0.25%, not dead" }]],
+              presets: [
+                ["@babel/preset-env", { targets: ">0.25%, not dead" }],
+                "@babel/preset-react",
+              ],
             },
           },
         ],
@@ -57,6 +61,7 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
+              esModule: false,
               name: "images/[name].[ext]",
             },
           },

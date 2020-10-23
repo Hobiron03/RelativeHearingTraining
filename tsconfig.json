@@ -5,6 +5,8 @@
     "module": "es6",
     "target": "es5",
     "jsx": "react",
+    "baseUrl": "./",
+    "allowSyntheticDefaultImports": true
   },
   "paths": {
     "http://*": [
@@ -15,6 +17,6 @@
     ],
     "*.ts": [
       "*"
-    ]
+    ],
   }
 }
