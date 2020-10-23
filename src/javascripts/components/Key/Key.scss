@@ -1,0 +1,11 @@
+.Key {
+  border-radius: 100%;
+  border: 1px solid #000000;
+  width: 100px;
+  height: 100px;
+
+  &__name {
+    text-align: center;
+    color: red;
+  }
+}

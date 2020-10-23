@@ -5,9 +5,7 @@ import Piano from "./components/Piano/Piano";
 export const App = () => {
   return (
     <div>
-      <h1>Hello, React</h1>
       <Piano />
-      <Hello></Hello>
     </div>
   );
 };

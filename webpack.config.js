@@ -43,7 +43,11 @@ module.exports = {
       },
       {
         test: /\.(css|sass|scss)/,
+
         use: [
+          {
+            loader: "css-hot-loader",
+          },
           {
             loader: MiniCssExtractPlugin.loader,
           },
