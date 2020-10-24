@@ -51,7 +51,7 @@ const Piano = () => {
               index={index}
               name={key}
               width={keySize}
-              height={keySize}
+              height={keySize + 10}
               isWhite={false}
             />
           );
@@ -65,7 +65,7 @@ const Piano = () => {
               index={index}
               name={key}
               width={keySize}
-              height={keySize}
+              height={keySize + 20}
               isWhite={true}
             />
           );
