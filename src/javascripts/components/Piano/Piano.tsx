@@ -9,7 +9,7 @@ const Piano = () => {
       <div className="black"></div>
       <div className="white"></div>
       <Key name="C" width={80} height={80} isWhite={true} />
-      <Key name="C#" width={80} height={80} isWhite={false} />
+      <Key name="Cs" width={80} height={80} isWhite={false} />
       <Key name="D" width={80} height={80} isWhite={true} />
     </div>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -11,7 +12,7 @@ module.exports = {
     filename: "./javascripts/main.js",
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx", "mp3"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", "mp3", "wav"],
   },
   module: {
     rules: [
@@ -58,7 +59,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|mp3)/,
+        test: /\.(png|jpe?g|gif|mp3|wav)/,
         use: [
           {
             loader: "file-loader",

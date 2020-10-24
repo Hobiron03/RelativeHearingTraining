@@ -10,7 +10,7 @@ interface KeyProps {
 }
 
 const Key = (props: KeyProps): JSX.Element => {
-  const audio = new Audio("../../../medias/oyasumi.mp3"); //　コンストラクタでaudio要素を生成
+  const audio = new Audio(`../../../medias/${props.name}.wav`);
 
   const useStyles = makeStyles({
     white: {
@@ -30,7 +30,11 @@ const Key = (props: KeyProps): JSX.Element => {
 
   const PlaySound = () => {
     console.log("play sound");
-    audio.play();
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.currentTime = 0;
+    }
   };
 
   return (
