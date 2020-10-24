@@ -4,7 +4,7 @@ import Key from "../Key/Key";
 import "./Piano.scss";
 
 const Piano = () => {
-  const [keySize, setKeySize] = useState<number>(65);
+  const [keySize, setKeySize] = useState<number>(80);
   const [whiteKeys, setWhiteKeys] = useState<Array<string>>([
     "null",
     "G",

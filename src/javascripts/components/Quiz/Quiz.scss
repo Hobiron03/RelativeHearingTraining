@@ -1,0 +1,12 @@
+.quiz {
+  &__title {
+    color: rgb(248, 87, 87);
+  }
+
+  &__header {
+    display: flex;
+    h2 {
+      margin-right: 50px;
+    }
+  }
+}

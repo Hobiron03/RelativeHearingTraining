@@ -3,7 +3,6 @@ import Config from "../Config/Config";
 import Quiz from "../Quiz/Quiz";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 
 const Content = () => {
   const [level, setLevel] = useState<string>("初級");
