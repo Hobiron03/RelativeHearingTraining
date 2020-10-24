@@ -1,10 +1,19 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import "../medias/oyasumi.mp3";
+import "../medias/Gb.wav";
+import "../medias/G.wav";
+import "../medias/Ab.wav";
+import "../medias/A.wav";
+import "../medias/Bb.wav";
+import "../medias/B.wav";
 import "../medias/C.wav";
 import "../medias/Cs.wav";
 import "../medias/D.wav";
+import "../medias/Ds.wav";
+import "../medias/E.wav";
+import "../medias/F.wav";
+import "../medias/Fs.wav";
 
 ReactDOM.render(
   <React.StrictMode>

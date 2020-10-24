@@ -1,0 +1,16 @@
+.piano {
+  margin: 0 auto;
+  border: solid 1px black;
+  padding-top: 30px;
+
+  &__black {
+    display: flex;
+  }
+
+  &__white {
+    display: flex;
+  }
+  transform: translateX(-50%);
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(50%);
+}

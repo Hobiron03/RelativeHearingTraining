@@ -10,4 +10,13 @@
     font-family: bold;
     text-align: center;
   }
+
+  &__name {
+    font-family: bold;
+    text-align: center;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
