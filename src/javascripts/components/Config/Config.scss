@@ -1,8 +1,22 @@
 .config {
   &__key-setting {
+    margin-top: 50px;
     &__button {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
     }
+  }
+
+  &__select-level {
+    margin-top: 40px;
+
+    &__button {
+      display: flex;
+    }
+  }
+
+  &__start-button {
+    margin-top: 50px;
+    background-color: red;
   }
 }

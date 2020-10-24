@@ -11,12 +11,10 @@ export const App = () => {
       <Header />
       <div className="App__content">
         <h1 className="App__content__description">
-          相対音感を鍛えて最強になろう！
+          ♫相対音感を鍛えて最強になろう♫
         </h1>
         <p>こんにちは相対音感トレーニングへようこそ</p>
-
         <Content></Content>
-        <Piano />
       </div>
     </div>
   );
