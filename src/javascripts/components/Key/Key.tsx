@@ -11,7 +11,9 @@ interface KeyProps {
 }
 
 const Key = (props: KeyProps): JSX.Element => {
-  const audio = new Audio(`../../../medias/${props.name}.wav`);
+  const [audio, setAudio] = useState<HTMLAudioElement>(
+    new Audio(`../../../medias/${props.name}.wav`)
+  );
 
   const [keyMargin, setKeyMargin] = useState<number>(35);
 
