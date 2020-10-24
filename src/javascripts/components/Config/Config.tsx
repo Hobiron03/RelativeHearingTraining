@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import "./Config.scss";
 
-const Config = () => {
+interface ConfigProps {
+  onQuizStart: () => void;
+  onSetLevel: (level: string) => void;
+  onSetKey: (musicKey: string) => void;
+}
+
+const Config = (props: ConfigProps) => {
   const [level, setLevel] = useState<string>("初級");
-  const [levels, setLevels] = useState<Array<string>>(["初級", "中級", "上級"]);
+  const [levels] = useState<Array<string>>(["初級", "中級", "上級"]);
   const [musicKey, setMusicKey] = useState<string>("C");
-  const [musicKeys, setMusicKeys] = useState<Array<string>>([
+  const [musicKeys] = useState<Array<string>>([
     "C",
     "C# (D♭)",
     "D",
@@ -20,12 +26,14 @@ const Config = () => {
     "B",
   ]);
 
-  const ChangeKey = (key: string) => {
-    setMusicKey(key);
+  const ChangeKey = (mk: string) => {
+    setMusicKey(mk);
+    props.onSetKey(mk);
   };
 
   const ChangeLevel = (level: string) => {
     setLevel(level);
+    props.onSetLevel(level);
   };
 
   const levelDescription = () => {
@@ -125,7 +133,12 @@ const Config = () => {
       </div>
 
       <div className="config__start-button">
-        <Button variant="contained" color="secondary" fullWidth={true}>
+        <Button
+          variant="contained"
+          color="secondary"
+          fullWidth={true}
+          onClick={props.onQuizStart}
+        >
           スタート
         </Button>
       </div>
