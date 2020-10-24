@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "./components/Header/Header";
 import Piano from "./components/Piano/Piano";
+import Content from "./components/Content/Content";
 import "../stylesheets/main.scss";
 import "normalize.css";
 
@@ -13,6 +14,8 @@ export const App = () => {
           相対音感を鍛えて最強になろう！
         </h1>
         <p>こんにちは相対音感トレーニングへようこそ</p>
+
+        <Content></Content>
         <Piano />
       </div>
     </div>
