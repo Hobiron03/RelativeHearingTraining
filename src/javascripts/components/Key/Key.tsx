@@ -11,7 +11,9 @@ interface KeyProps {
 }
 
 const Key = (props: KeyProps): JSX.Element => {
-  const audio = new Audio(`../../../medias/${props.name}.wav`);
+  const [audio, setAudio] = useState<HTMLAudioElement>(
+    new Audio(`../../../medias/${props.name}.wav`)
+  );
 
   const [keyMargin, setKeyMargin] = useState<number>(35);
 
@@ -23,6 +25,9 @@ const Key = (props: KeyProps): JSX.Element => {
       height: props.height,
       backgroundColor: "#FFFFFF",
       color: "#000000",
+      "&:hover": {
+        backgroundColor: "#e7e7e7",
+      },
     },
     black: {
       position: "absolute",
@@ -31,6 +36,9 @@ const Key = (props: KeyProps): JSX.Element => {
       height: props.height,
       backgroundColor: "#000000",
       color: "#FFFFFF",
+      "&:hover": {
+        backgroundColor: "#2c2c2c",
+      },
     },
     null: {
       width: props.width,

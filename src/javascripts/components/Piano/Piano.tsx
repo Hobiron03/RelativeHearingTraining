@@ -47,6 +47,7 @@ const Piano = () => {
         {blackKeys.map((key, index) => {
           return (
             <Key
+              key={index}
               index={index}
               name={key}
               width={keySize}
@@ -60,6 +61,7 @@ const Piano = () => {
         {whiteKeys.map((key, index) => {
           return (
             <Key
+              key={index}
               index={index}
               name={key}
               width={keySize}
