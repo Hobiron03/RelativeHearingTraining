@@ -1,0 +1,22 @@
+.key {
+  border-radius: 100%;
+  border: 1px solid #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+
+  &__name {
+    font-family: bold;
+    text-align: center;
+  }
+
+  &__name {
+    font-family: bold;
+    text-align: center;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -6,14 +6,13 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
-  // entry: "./src/javascripts/main.ts",
   entry: "./src/javascripts/index.tsx",
   output: {
     path: path.resolve(__dirname, "./dist"),
     filename: "./javascripts/main.js",
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", "mp3", "wav"],
   },
   module: {
     rules: [
@@ -43,7 +42,11 @@ module.exports = {
       },
       {
         test: /\.(css|sass|scss)/,
+
         use: [
+          {
+            loader: "css-hot-loader",
+          },
           {
             loader: MiniCssExtractPlugin.loader,
           },
@@ -56,13 +59,13 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif)/,
+        test: /\.(png|jpe?g|gif|mp3|wav)/,
         use: [
           {
             loader: "file-loader",
             options: {
               esModule: false,
-              name: "images/[name].[ext]",
+              name: "medias/[name].[ext]",
             },
           },
         ],
