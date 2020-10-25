@@ -1,0 +1,40 @@
+.quiz {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+
+    &__title {
+      color: rgb(248, 87, 87);
+    }
+  }
+
+  &__desc {
+    display: flex;
+    h2 {
+      margin-right: 50px;
+    }
+  }
+
+  &__sound {
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+
+    &__note {
+      margin: 0 auto;
+      text-align: center;
+      font-size: 55px;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__piano {
+    margin-top: 60px;
+  }
+}

@@ -15,12 +15,12 @@ const Key = (props: KeyProps): JSX.Element => {
     new Audio(`../../../medias/${props.name}.wav`)
   );
 
-  const [keyMargin, setKeyMargin] = useState<number>(35);
+  const [keyMargin, setKeyMargin] = useState<number>(45);
 
   const useStyles = makeStyles({
     white: {
       position: "absolute",
-      left: keyMargin * props.index + 200,
+      left: keyMargin * props.index + 135,
       width: props.width,
       height: props.height,
       backgroundColor: "#FFFFFF",
@@ -31,7 +31,7 @@ const Key = (props: KeyProps): JSX.Element => {
     },
     black: {
       position: "absolute",
-      left: keyMargin * props.index + 200,
+      left: keyMargin * props.index + 135,
       width: props.width,
       height: props.height,
       backgroundColor: "#000000",

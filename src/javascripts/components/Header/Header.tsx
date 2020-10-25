@@ -22,7 +22,7 @@ const Header = (): JSX.Element => {
     <div>
       <AppBar position="static" color="secondary" className={classes.header}>
         <Typography variant="h6" className={classes.title}>
-          相対音感トレーニングDS
+          相対音感トレーニング（β版）
         </Typography>
       </AppBar>
     </div>

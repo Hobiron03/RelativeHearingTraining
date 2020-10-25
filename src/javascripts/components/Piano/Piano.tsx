@@ -4,7 +4,7 @@ import Key from "../Key/Key";
 import "./Piano.scss";
 
 const Piano = () => {
-  const [keySize, setKeySize] = useState<number>(65);
+  const [keySize, setKeySize] = useState<number>(80);
   const [whiteKeys, setWhiteKeys] = useState<Array<string>>([
     "null",
     "G",
@@ -31,9 +31,9 @@ const Piano = () => {
     "null",
     "null",
     "null",
-    "Cs",
+    "C♯",
     "null",
-    "Ds",
+    "Eb",
     "null",
     "null",
     "null",
@@ -51,7 +51,7 @@ const Piano = () => {
               index={index}
               name={key}
               width={keySize}
-              height={keySize}
+              height={keySize + 5}
               isWhite={false}
             />
           );
@@ -65,7 +65,7 @@ const Piano = () => {
               index={index}
               name={key}
               width={keySize}
-              height={keySize}
+              height={keySize + 5}
               isWhite={true}
             />
           );
