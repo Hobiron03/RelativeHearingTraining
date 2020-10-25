@@ -31,9 +31,9 @@ const Piano = () => {
     "null",
     "null",
     "null",
-    "Cs",
+    "C♯",
     "null",
-    "Ds",
+    "Eb",
     "null",
     "null",
     "null",
@@ -51,7 +51,7 @@ const Piano = () => {
               index={index}
               name={key}
               width={keySize}
-              height={keySize + 10}
+              height={keySize + 5}
               isWhite={false}
             />
           );
@@ -65,7 +65,7 @@ const Piano = () => {
               index={index}
               name={key}
               width={keySize}
-              height={keySize + 20}
+              height={keySize + 5}
               isWhite={true}
             />
           );

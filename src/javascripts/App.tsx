@@ -10,10 +10,10 @@ export const App = () => {
     <div className="App">
       <Header />
       <div className="App__content">
-        <h1 className="App__content__description">
+        <h2 className="App__content__description">
           ♫相対音感を鍛えて最強になろう♫
-        </h1>
-        <p>現在はKey=Cと初級のみ挑戦可能です。鋭意開発していきます。</p>
+        </h2>
+
         <Content></Content>
       </div>
     </div>
