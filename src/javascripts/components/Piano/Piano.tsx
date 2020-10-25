@@ -23,21 +23,21 @@ const Piano = () => {
   ]);
 
   const [blackKeys, setBlackKeys] = useState<Array<string>>([
-    "Gb",
+    "Gb（F♯）",
     "null",
-    "Ab",
+    "Ab（G♯）",
     "null",
-    "Bb",
-    "null",
-    "null",
-    "null",
-    "C♯",
-    "null",
-    "Eb",
+    "Bb（A♯）",
     "null",
     "null",
     "null",
-    "Fs",
+    "Db（C♯）",
+    "null",
+    "Eb（D♯）",
+    "null",
+    "null",
+    "null",
+    "F♯（Gb）",
     "null",
   ]);
 

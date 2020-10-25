@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Piano from "../Piano/Piano";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
@@ -35,6 +35,10 @@ function valuetext(value) {
 }
 
 const Quiz = (props: QuizProps) => {
+  const [audio, setAudio] = useState<HTMLAudioElement>(
+    new Audio(`../../../medias/${props.musicKey}.wav`)
+  );
+
   const classes = useStyles();
 
   return (
