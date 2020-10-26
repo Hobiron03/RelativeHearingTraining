@@ -27,6 +27,10 @@ const useStyles = makeStyles({
       backgroundColor: "#ececec",
     },
   },
+  nonactive: {
+    opacity: 0,
+  },
+  active: {},
   note: {},
 });
 
@@ -35,6 +39,9 @@ function valuetext(value) {
 }
 
 const Quiz = (props: QuizProps) => {
+  const [isKeyNoteActive, setIsKeyNoteActive] = useState<boolean>(false);
+  const [isQuizNoteActive, setIsQuizNoteActive] = useState<boolean>(false);
+
   const [audio, setAudio] = useState<HTMLAudioElement>(
     new Audio(`../../../medias/${props.musicKey}.wav`)
   );
@@ -63,21 +70,25 @@ const Quiz = (props: QuizProps) => {
       </div>
 
       <div className="quiz__sound">
-        <Card className={classes.notecard}>
-          <CardContent className={classes.note}>
-            <div className="quiz__sound__note">
-              <MusicNoteIcon fontSize="large"></MusicNoteIcon>
-            </div>
-          </CardContent>
-        </Card>
+        <div className={isKeyNoteActive ? classes.active : classes.nonactive}>
+          <Card className={classes.notecard}>
+            <CardContent className={classes.note}>
+              <div className="quiz__sound__note">
+                <MusicNoteIcon fontSize="large"></MusicNoteIcon>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-        <Card className={classes.notecard}>
-          <CardContent className={classes.note}>
-            <div className="quiz__sound__note">
-              <MusicNoteIcon fontSize="large"></MusicNoteIcon>
-            </div>
-          </CardContent>
-        </Card>
+        <div className={isQuizNoteActive ? classes.active : classes.nonactive}>
+          <Card className={classes.notecard}>
+            <CardContent className={classes.note}>
+              <div className="quiz__sound__note">
+                <MusicNoteIcon fontSize="large"></MusicNoteIcon>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
       <div className="quiz__piano">
