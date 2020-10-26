@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Piano from "../Piano/Piano";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
@@ -15,6 +15,9 @@ import "./Quiz.scss";
 interface QuizProps {
   musicKey: string;
   level: string;
+  currentQuestion?: number;
+  mainSound?: HTMLAudioElement;
+  questionSound?: HTMLAudioElement;
 }
 
 const useStyles = makeStyles({
@@ -30,7 +33,7 @@ const useStyles = makeStyles({
   nonactive: {
     opacity: 0,
   },
-  active: {},
+  active: { opacity: 100 },
   note: {},
 });
 
@@ -39,19 +42,49 @@ function valuetext(value) {
 }
 
 const Quiz = (props: QuizProps) => {
+  const classes = useStyles();
   const [isKeyNoteActive, setIsKeyNoteActive] = useState<boolean>(false);
   const [isQuizNoteActive, setIsQuizNoteActive] = useState<boolean>(false);
-
-  const [audio, setAudio] = useState<HTMLAudioElement>(
+  const [mainSoundAudio, setMainSoundAudio] = useState<HTMLAudioElement>(
     new Audio(`../../../medias/${props.musicKey}.wav`)
   );
+  const [questionSoundAudio, setQuestionSoundAudio] = useState<
+    HTMLAudioElement
+  >(new Audio(`../../../medias/${props.musicKey}.wav`));
 
-  const classes = useStyles();
+  useEffect(() => {
+    QuizController();
+  }, []);
+
+  const QuizController = () => {
+    setTimeout(() => {
+      PlayMainSound();
+      setTimeout(PlayQuestionSound, 1000);
+    }, 1000);
+  };
+
+  const PlayMainSound = () => {
+    setIsKeyNoteActive(true);
+    if (mainSoundAudio.paused) {
+      mainSoundAudio.play();
+    } else {
+      mainSoundAudio.currentTime = 0;
+    }
+  };
+
+  const PlayQuestionSound = () => {
+    setIsQuizNoteActive(true);
+    if (questionSoundAudio.paused) {
+      questionSoundAudio.play();
+    } else {
+      questionSoundAudio.currentTime = 0;
+    }
+  };
 
   return (
     <div className="quiz">
       <div className="quiz__header">
-        <h2 className="quiz__header__title">Quiz: {valuetext(1)}</h2>
+        <h2 className="quiz__header__title">Quiz: {props.currentQuestion}</h2>
       </div>
 
       <Slider
@@ -70,22 +103,30 @@ const Quiz = (props: QuizProps) => {
       </div>
 
       <div className="quiz__sound">
-        <div className={isKeyNoteActive ? classes.active : classes.nonactive}>
+        <div
+          className={isKeyNoteActive ? classes.active : classes.nonactive}
+          onClick={PlayMainSound}
+        >
           <Card className={classes.notecard}>
             <CardContent className={classes.note}>
               <div className="quiz__sound__note">
                 <MusicNoteIcon fontSize="large"></MusicNoteIcon>
               </div>
+              <p className="quiz__sound__note-name">{props.musicKey}</p>
             </CardContent>
           </Card>
         </div>
 
-        <div className={isQuizNoteActive ? classes.active : classes.nonactive}>
+        <div
+          className={isQuizNoteActive ? classes.active : classes.nonactive}
+          onClick={PlayQuestionSound}
+        >
           <Card className={classes.notecard}>
             <CardContent className={classes.note}>
               <div className="quiz__sound__note">
                 <MusicNoteIcon fontSize="large"></MusicNoteIcon>
               </div>
+              <p className="quiz__sound__note-name">?</p>
             </CardContent>
           </Card>
         </div>
