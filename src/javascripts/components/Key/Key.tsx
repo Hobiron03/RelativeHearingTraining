@@ -9,14 +9,13 @@ interface KeyProps {
   height: number;
   isWhite: boolean;
   name?: string;
-  setPressedKey: (note: string) => {};
+  sound: HTMLAudioElement;
 }
 
 const Key = (props: KeyProps): JSX.Element => {
   const { state, dispatch } = useContext(AppContext);
-  const [audio, setAudio] = useState<HTMLAudioElement>(
-    new Audio(`../../../medias/${props.name}.wav`)
-  );
+
+  const [sound, setsound] = useState<HTMLAudioElement>(props.sound);
 
   const [keyMargin, setKeyMargin] = useState<number>(45);
 
@@ -51,15 +50,14 @@ const Key = (props: KeyProps): JSX.Element => {
   const classes = useStyles();
 
   const PlaySound = () => {
-    console.log("play sound");
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.currentTime = 0;
+    if (sound) {
+      if (sound.paused) {
+        sound.play();
+      } else {
+        sound.currentTime = 0;
+      }
+      dispatch({ type: SET_PRESSED_NOTE, pressedNote: props.name });
     }
-
-    props.setPressedKey(props.name);
-    dispatch({ type: SET_PRESSED_NOTE, pressedNote: props.name });
   };
 
   return props.name !== "null" ? (

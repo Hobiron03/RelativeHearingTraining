@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AppContext from "../../contexts/AppContext.js";
 import { Grid } from "@material-ui/core";
 import Key from "../Key/Key";
 import "./Piano.scss";
 
 const Piano = () => {
+  const { state, dispatch } = useContext(AppContext);
   const [pressedKey, setPressedKey] = useState<string>("");
   const [keySize, setKeySize] = useState<number>(80);
   const [whiteKeys, setWhiteKeys] = useState<Array<string>>([
@@ -21,6 +23,23 @@ const Piano = () => {
     "E",
     "null",
     "F",
+  ]);
+
+  const [whiteKeySounds, setWhiteKeySound] = useState<Array<HTMLAudioElement>>([
+    null,
+    state.noteSounds.G,
+    null,
+    state.noteSounds.A,
+    null,
+    state.noteSounds.B,
+    null,
+    state.noteSounds.C,
+    null,
+    state.noteSounds.D,
+    null,
+    state.noteSounds.E,
+    null,
+    state.noteSounds.F,
   ]);
 
   const [blackKeys, setBlackKeys] = useState<Array<string>>([
@@ -42,6 +61,27 @@ const Piano = () => {
     "null",
   ]);
 
+  const [blackKeySounds, setBlackKeySound] = useState<Array<HTMLAudioElement>>([
+    state.noteSounds.Gb,
+    null,
+    state.noteSounds.Ab,
+    null,
+    state.noteSounds.Bb,
+    null,
+    null,
+    null,
+    state.noteSounds.Db,
+    null,
+    state.noteSounds.Eb,
+    null,
+    null,
+    null,
+    state.noteSounds.Fs,
+    null,
+  ]);
+
+  console.log("Here is Pisno");
+
   return (
     <div className="piano">
       <div className="piano__black">
@@ -54,7 +94,7 @@ const Piano = () => {
               width={keySize}
               height={keySize + 5}
               isWhite={false}
-              setPressedKey={() => setPressedKey}
+              sound={blackKeySounds[index]}
             />
           );
         })}
@@ -69,7 +109,7 @@ const Piano = () => {
               width={keySize}
               height={keySize + 5}
               isWhite={true}
-              setPressedKey={() => setPressedKey}
+              sound={whiteKeySounds[index]}
             />
           );
         })}

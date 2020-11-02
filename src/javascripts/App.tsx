@@ -1,15 +1,17 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import AppContext from "./contexts/AppContext.js";
 import reducer from "./reducers/";
 import Header from "./components/Header/Header";
-import Piano from "./components/Piano/Piano";
 import Content from "./components/Content/Content";
+import FetchSoundData from "./FetchSoundData";
+import { SET_NOTE_SOUND } from "./actions/index";
 import "../stylesheets/main.scss";
 import "normalize.css";
 
 export const App = () => {
   const initialState = {
     pressedKey: "",
+    noteSounds: FetchSoundData(),
   };
   const [state, dispatch] = useReducer(reducer, initialState);
 
