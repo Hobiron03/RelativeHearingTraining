@@ -4,6 +4,7 @@ import Key from "../Key/Key";
 import "./Piano.scss";
 
 const Piano = () => {
+  const [pressedKey, setPressedKey] = useState<string>("");
   const [keySize, setKeySize] = useState<number>(80);
   const [whiteKeys, setWhiteKeys] = useState<Array<string>>([
     "null",
@@ -53,6 +54,7 @@ const Piano = () => {
               width={keySize}
               height={keySize + 5}
               isWhite={false}
+              setPressedKey={() => setPressedKey}
             />
           );
         })}
@@ -67,6 +69,7 @@ const Piano = () => {
               width={keySize}
               height={keySize + 5}
               isWhite={true}
+              setPressedKey={() => setPressedKey}
             />
           );
         })}

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/styles";
-
+import AppContext from "../../contexts/AppContext.js";
+import { SET_PRESSED_NOTE } from "../../actions/index";
 import "./Key.scss";
 interface KeyProps {
   index: number;
@@ -8,9 +9,11 @@ interface KeyProps {
   height: number;
   isWhite: boolean;
   name?: string;
+  setPressedKey: (note: string) => {};
 }
 
 const Key = (props: KeyProps): JSX.Element => {
+  const { state, dispatch } = useContext(AppContext);
   const [audio, setAudio] = useState<HTMLAudioElement>(
     new Audio(`../../../medias/${props.name}.wav`)
   );
@@ -54,6 +57,9 @@ const Key = (props: KeyProps): JSX.Element => {
     } else {
       audio.currentTime = 0;
     }
+
+    props.setPressedKey(props.name);
+    dispatch({ type: SET_PRESSED_NOTE, pressedNote: props.name });
   };
 
   return props.name !== "null" ? (

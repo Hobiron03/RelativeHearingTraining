@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AppContext from "../../contexts/AppContext.js";
 import Piano from "../Piano/Piano";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
@@ -43,6 +44,8 @@ function valuetext(value) {
 
 const Quiz = (props: QuizProps) => {
   const classes = useStyles();
+  const { state, dispatch } = useContext(AppContext);
+
   const [isKeyNoteActive, setIsKeyNoteActive] = useState<boolean>(false);
   const [isQuizNoteActive, setIsQuizNoteActive] = useState<boolean>(false);
   const [mainSoundAudio, setMainSoundAudio] = useState<HTMLAudioElement>(
@@ -54,6 +57,8 @@ const Quiz = (props: QuizProps) => {
 
   useEffect(() => {
     QuizController();
+    console.log("Hello, Context");
+    console.log(state);
   }, []);
 
   const QuizController = () => {
