@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AppContext from "../../contexts/AppContext.js";
 import Piano from "../Piano/Piano";
+import QuizTop from "../QuizTop/QuizTop";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
@@ -11,70 +13,85 @@ import Typography from "@material-ui/core/Typography";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import Slider from "@material-ui/core/Slider";
 import "./Quiz.scss";
+import noteSounds from "src/javascripts/reducers/NoteSound.js";
 
 interface QuizProps {
-  musicKey: string;
+  musicKeyName: string;
   level: string;
-}
 
-const useStyles = makeStyles({
-  notecard: {
-    width: 110,
-    height: 110,
-    transition: "0.2s all",
-    "&:hover": {
-      cursor: "pointer",
-      backgroundColor: "#ececec",
-    },
+  currentQuestion?: number;
+  mainSound?: HTMLAudioElement;
+  questionSound?: HTMLAudioElement;
+}
+//ここでクイズを作っておく？
+interface Question {
+  id: number;
+  sound: HTMLAudioElement;
+  soundName: string;
+}
+interface QuizData {
+  keySound: HTMLAudioElement;
+  keySoundName: string;
+  questions: Array<Question>;
+}
+const mock = [
+  {
+    id: 1,
   },
-  note: {},
-});
-
-function valuetext(value) {
-  return `${value}門目`;
-}
+];
 
 const Quiz = (props: QuizProps) => {
-  const classes = useStyles();
+  const { state, dispatch } = useContext(AppContext);
+  const [isCreated, setIsCreated] = useState<boolean>(false);
 
+  useEffect(() => {
+    CreateQuizData();
+  }, []);
+
+  const solveResult = () => {
+    console.log("soloveRes");
+    console.log(props.mainSound);
+    if (state.pressedNote.pressedNote === "C") {
+      return (
+        <div>
+          <p>正解！！！</p>
+        </div>
+      );
+    } else if (state.pressedNote !== "") {
+      return (
+        <div>
+          <p>matigai</p>
+        </div>
+      );
+    } else {
+      return;
+    }
+  };
+
+  const CreateQuizData = (): QuizData => {
+    const quizData = {
+      keySound: state.noteSounds.C,
+      keySoundName: props.musicKeyName,
+      questions: [],
+    };
+
+    for (let i = 0; i < 10; i++) {
+      const question = {
+        id: i,
+      };
+      quizData.questions.push();
+    }
+
+    setIsCreated(true);
+    return;
+  };
+
+  console.log("Render Quiz component");
   return (
     <div className="quiz">
-      <div className="quiz__header">
-        <h2 className="quiz__header__title">Quiz: {valuetext(1)}</h2>
-      </div>
+      <QuizTop></QuizTop>
 
-      <Slider
-        defaultValue={1}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={1}
-        max={10}
-      />
-      <div className="quiz__desc">
-        <h2>Level: {props.level}</h2>
-        <h2>key: {props.musicKey} </h2>
-      </div>
-
-      <div className="quiz__sound">
-        <Card className={classes.notecard}>
-          <CardContent className={classes.note}>
-            <div className="quiz__sound__note">
-              <MusicNoteIcon fontSize="large"></MusicNoteIcon>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className={classes.notecard}>
-          <CardContent className={classes.note}>
-            <div className="quiz__sound__note">
-              <MusicNoteIcon fontSize="large"></MusicNoteIcon>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      {solveResult()}
 
       <div className="quiz__piano">
         <Piano></Piano>

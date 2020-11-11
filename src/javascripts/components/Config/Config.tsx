@@ -14,15 +14,15 @@ const Config = (props: ConfigProps) => {
   const [musicKey, setMusicKey] = useState<string>("C");
   const [musicKeys] = useState<Array<string>>([
     "C",
-    "C# (D♭)",
+    "C♯（D♭）",
     "D",
-    "D# (E♭)",
+    "D♯(E♭)",
     "E",
     "F",
-    "F# (G♭)",
+    "F♯(G♭)",
     "G",
     "A",
-    "A# (B♭)",
+    "A♯（B♭）",
     "B",
   ]);
 

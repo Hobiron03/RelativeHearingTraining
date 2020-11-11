@@ -25,7 +25,12 @@
     &__note {
       margin: 0 auto;
       text-align: center;
-      font-size: 55px;
+    }
+
+    &__note-name {
+      font-weight: bold;
+      text-align: center;
+      font-size: 22px;
     }
   }
 
