@@ -10,7 +10,7 @@ import Slider from "@material-ui/core/Slider";
 interface QuizProps {
   musicKey: string;
   level: string;
-  currentQuestion?: number;
+  currentQuestionNumber: number;
   mainSound?: HTMLAudioElement;
   questionSound?: HTMLAudioElement;
 }
@@ -18,6 +18,7 @@ interface QuizProps {
 const mockQuizProps: QuizProps = {
   musicKey: "C",
   level: "初級",
+  currentQuestionNumber: 3,
   // mainSound?: HTMLAudioElement,
   // questionSound?: HTMLAudioElement
 };
@@ -39,29 +40,26 @@ const useStyles = makeStyles({
   note: {},
 });
 
-function valuetext(value) {
-  return `${value}門目`;
-}
-
 const QuizTop = () => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
 
   const [isKeyNoteActive, setIsKeyNoteActive] = useState<boolean>(false);
   const [isQuizNoteActive, setIsQuizNoteActive] = useState<boolean>(false);
+  // const [mainSoundAudio, setMainSoundAudio] = useState<HTMLAudioElement>(
+  //   new Audio(`../../../medias/${mockQuizProps.musicKey}.wav`)
+  // );
   const [mainSoundAudio, setMainSoundAudio] = useState<HTMLAudioElement>(
-    new Audio(`../../../medias/${mockQuizProps.musicKey}.wav`)
+    state.noteSounds.C
   );
   const [questionSoundAudio, setQuestionSoundAudio] = useState<
     HTMLAudioElement
-  >(new Audio(`../../../medias/${mockQuizProps.musicKey}.wav`));
-
+  >(state.noteSounds.D);
   console.log(state);
 
   useEffect(() => {
     //クイズ開始
     QuizController();
-    console.log("useEffect");
   }, []);
 
   const QuizController = () => {
@@ -92,13 +90,12 @@ const QuizTop = () => {
     <div>
       <div className="quiz__header">
         <h2 className="quiz__header__title">
-          Quiz: {mockQuizProps.currentQuestion}
+          Quiz: {mockQuizProps.currentQuestionNumber}
         </h2>
       </div>
 
       <Slider
-        defaultValue={1}
-        getAriaValueText={valuetext}
+        defaultValue={mockQuizProps.currentQuestionNumber}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
         step={1}

@@ -10,7 +10,7 @@ import "normalize.css";
 
 export const App = () => {
   const initialState = {
-    pressedKey: "",
+    pressedNote: "",
     noteSounds: FetchSoundData(),
   };
   const [state, dispatch] = useReducer(reducer, initialState);
