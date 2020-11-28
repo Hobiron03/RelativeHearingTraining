@@ -8,20 +8,20 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import Slider from "@material-ui/core/Slider";
 
 interface QuizProps {
-  musicKey: string;
-  level: string;
+  musicKey?: string;
+  level?: string;
   currentQuestionNumber: number;
   mainSound?: HTMLAudioElement;
   questionSound?: HTMLAudioElement;
 }
 
-const mockQuizProps: QuizProps = {
-  musicKey: "C",
-  level: "初級",
-  currentQuestionNumber: 3,
-  // mainSound?: HTMLAudioElement,
-  // questionSound?: HTMLAudioElement
-};
+// const mockQuizProps: QuizProps = {
+//   musicKey: "C",
+//   level: "初級",
+//   currentQuestionNumber: 3,
+//   // mainSound?: HTMLAudioElement,
+//   // questionSound?: HTMLAudioElement
+// };
 
 const useStyles = makeStyles({
   notecard: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   note: {},
 });
 
-const QuizTop = () => {
+const QuizTop = (props: QuizProps) => {
   const classes = useStyles();
   const { state, dispatch } = useContext(AppContext);
 
@@ -52,15 +52,22 @@ const QuizTop = () => {
   const [mainSoundAudio, setMainSoundAudio] = useState<HTMLAudioElement>(
     state.noteSounds.C
   );
-  const [questionSoundAudio, setQuestionSoundAudio] = useState<
-    HTMLAudioElement
-  >(state.noteSounds.D);
+  const [
+    questionSoundAudio,
+    setQuestionSoundAudio,
+  ] = useState<HTMLAudioElement>(state.noteSounds.D);
   console.log(state);
 
   useEffect(() => {
     //クイズ開始
     QuizController();
   }, []);
+
+  useEffect(() => {
+    setIsKeyNoteActive(false);
+    setIsQuizNoteActive(false);
+    QuizController();
+  }, [props.currentQuestionNumber]);
 
   const QuizController = () => {
     setTimeout(() => {
@@ -90,12 +97,12 @@ const QuizTop = () => {
     <div>
       <div className="quiz__header">
         <h2 className="quiz__header__title">
-          Quiz: {mockQuizProps.currentQuestionNumber}
+          Quiz: {props.currentQuestionNumber}
         </h2>
       </div>
-
+      {/* TODO: Sliderの値を変更する処理をかく */}
       <Slider
-        defaultValue={mockQuizProps.currentQuestionNumber}
+        defaultValue={1}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
         step={1}
@@ -104,10 +111,10 @@ const QuizTop = () => {
         max={10}
       />
       <div className="quiz__desc">
-        <h2>Level: {mockQuizProps.level}</h2>
-        <h2>key: {mockQuizProps.musicKey} </h2>
+        <h2>Level: {props.level}</h2>
+        <h2>key: {props.musicKey} </h2>
       </div>
-
+      props
       <div className="quiz__sound">
         <div
           className={isKeyNoteActive ? classes.active : classes.nonactive}
@@ -118,7 +125,7 @@ const QuizTop = () => {
               <div className="quiz__sound__note">
                 <MusicNoteIcon fontSize="large"></MusicNoteIcon>
               </div>
-              <p className="quiz__sound__note-name">{mockQuizProps.musicKey}</p>
+              <p className="quiz__sound__note-name">{props.musicKey}</p>
             </CardContent>
           </Card>
         </div>

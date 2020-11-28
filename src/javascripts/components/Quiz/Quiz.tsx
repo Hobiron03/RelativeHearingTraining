@@ -34,15 +34,11 @@ interface QuizData {
   keySoundName: string;
   questions: Array<Question>;
 }
-const mock = [
-  {
-    id: 1,
-  },
-];
 
 const Quiz = (props: QuizProps) => {
   const { state, dispatch } = useContext(AppContext);
   const [isCreated, setIsCreated] = useState<boolean>(false);
+  const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(1);
   const [quizData, setQuizData] = useState<QuizData>({
     keySound: state.noteSounds.C,
     keySoundName: "C",
@@ -58,21 +54,27 @@ const Quiz = (props: QuizProps) => {
 
   const solveResult = () => {
     console.log(quizData);
+    if (quizData.questions[currentQuestionNumber - 1]) {
+      console.log(quizData.questions[0].soundName);
 
-    if (state.pressedNote.pressedNote === "C") {
-      return (
-        <div>
-          <p>正解！！！</p>
-        </div>
-      );
-    } else if (state.pressedNote !== "") {
-      return (
-        <div>
-          <p>matigai</p>
-        </div>
-      );
-    } else {
-      return;
+      if (
+        state.pressedNote.pressedNote ===
+        quizData.questions[currentQuestionNumber - 1].soundName
+      ) {
+        return (
+          <div>
+            <p>正解！！！</p>
+          </div>
+        );
+      } else if (state.pressedNote !== "") {
+        return (
+          <div>
+            <p>matigai</p>
+          </div>
+        );
+      } else {
+        return;
+      }
     }
   };
 
@@ -118,12 +120,6 @@ const Quiz = (props: QuizProps) => {
       questions: [],
     };
 
-    // interface Question {
-    //   id: number;
-    //   sound: HTMLAudioElement;
-    //   soundName: string;
-    // }
-
     for (let i = 0; i < 10; i++) {
       const soundInfo: {
         sound: HTMLAudioElement;
@@ -142,9 +138,24 @@ const Quiz = (props: QuizProps) => {
     return quizData;
   };
 
+  //矢印ボタンを押すと次の問題に進むgo or 前に戻るback
+  const ChagneQuestion = (dirction: string) => {
+    if (dirction === "go") {
+      currentQuestionNumber === 10
+        ? setCurrentQuestionNumber(10)
+        : setCurrentQuestionNumber(currentQuestionNumber + 1);
+    } else {
+      currentQuestionNumber === 1
+        ? setCurrentQuestionNumber(1)
+        : setCurrentQuestionNumber(currentQuestionNumber - 1);
+    }
+
+    console.log(currentQuestionNumber);
+  };
+
   return (
     <div className="quiz">
-      <QuizTop></QuizTop>
+      <QuizTop currentQuestionNumber={currentQuestionNumber}></QuizTop>
 
       {solveResult()}
 
@@ -153,10 +164,18 @@ const Quiz = (props: QuizProps) => {
       </div>
 
       <div className="quiz__footer">
-        <Fab color="primary" aria-label="back">
+        <Fab
+          color="primary"
+          aria-label="back"
+          onClick={() => ChagneQuestion("back")}
+        >
           <ArrowLeftIcon />
         </Fab>
-        <Fab color="primary" aria-label="next">
+        <Fab
+          color="primary"
+          aria-label="go"
+          onClick={() => ChagneQuestion("go")}
+        >
           <ArrowRightIcon />
         </Fab>
       </div>
