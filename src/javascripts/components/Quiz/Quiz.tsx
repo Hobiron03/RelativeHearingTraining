@@ -51,7 +51,7 @@ const Quiz = (props: QuizProps) => {
   const solveResult = () => {
     console.log("soloveRes");
     console.log(props.mainSound);
-    console.log(props.mainSound);
+    console.log(ReturnRondomSound());
 
     if (state.pressedNote.pressedNote === "C") {
       return (
@@ -72,7 +72,35 @@ const Quiz = (props: QuizProps) => {
 
   // TODO：state.noteSoundsからランダムで音を選ぶ
   const ReturnRondomSound = () => {
-    return;
+    const randomNum = Math.floor(Math.random() * (13 - 1) + 1);
+    switch (randomNum) {
+      case 1:
+        return state.noteSounds.Gb;
+      case 2:
+        return state.noteSounds.G;
+      case 3:
+        return state.noteSounds.Ab;
+      case 4:
+        return state.noteSounds.A;
+      case 5:
+        return state.noteSounds.Bb;
+      case 6:
+        return state.noteSounds.B;
+      case 7:
+        return state.noteSounds.C;
+      case 8:
+        return state.noteSounds.Db;
+      case 9:
+        return state.noteSounds.D;
+      case 10:
+        return state.noteSounds.Eb;
+      case 11:
+        return state.noteSounds.E;
+      case 12:
+        return state.noteSounds.F;
+      case 13:
+        return state.noteSounds.Fs;
+    }
   };
 
   // TODO: Quizデータを作る
@@ -93,7 +121,7 @@ const Quiz = (props: QuizProps) => {
       const question = {
         id: i,
         // TODO: set random sound & sound name
-        sound: state.noteSound.C,
+        sound: state.noteSounds.C,
         soundName: "C",
       };
       quizData.questions.push(question);
