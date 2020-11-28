@@ -43,15 +43,21 @@ const mock = [
 const Quiz = (props: QuizProps) => {
   const { state, dispatch } = useContext(AppContext);
   const [isCreated, setIsCreated] = useState<boolean>(false);
+  const [quizData, setQuizData] = useState<QuizData>({
+    keySound: state.noteSounds.C,
+    keySoundName: "C",
+    questions: [],
+  });
 
   useEffect(() => {
-    CreateQuizData();
+    const init = async () => {
+      await setQuizData(CreateQuizData());
+    };
+    init();
   }, []);
 
   const solveResult = () => {
-    console.log("soloveRes");
-    console.log(props.mainSound);
-    console.log(ReturnRondomSound());
+    console.log(quizData);
 
     if (state.pressedNote.pressedNote === "C") {
       return (
@@ -71,35 +77,36 @@ const Quiz = (props: QuizProps) => {
   };
 
   // TODO：state.noteSoundsからランダムで音を選ぶ
+  // TODO2: コードをリファクタリングする
   const ReturnRondomSound = () => {
     const randomNum = Math.floor(Math.random() * (13 - 1) + 1);
     switch (randomNum) {
       case 1:
-        return state.noteSounds.Gb;
+        return { sound: state.noteSounds.Gb, soundName: "Gb" };
       case 2:
-        return state.noteSounds.G;
+        return { sound: state.noteSounds.G, soundName: "G" };
       case 3:
-        return state.noteSounds.Ab;
+        return { sound: state.noteSounds.Ab, soundName: "Ab" };
       case 4:
-        return state.noteSounds.A;
+        return { sound: state.noteSounds.A, soundName: "A" };
       case 5:
-        return state.noteSounds.Bb;
+        return { sound: state.noteSounds.Bb, soundName: "Bb" };
       case 6:
-        return state.noteSounds.B;
+        return { sound: state.noteSounds.B, soundName: "B" };
       case 7:
-        return state.noteSounds.C;
+        return { sound: state.noteSounds.C, soundName: "C" };
       case 8:
-        return state.noteSounds.Db;
+        return { sound: state.noteSounds.Db, soundName: "Db" };
       case 9:
-        return state.noteSounds.D;
+        return { sound: state.noteSounds.D, soundName: "D" };
       case 10:
-        return state.noteSounds.Eb;
+        return { sound: state.noteSounds.Eb, soundName: "Eb" };
       case 11:
-        return state.noteSounds.E;
+        return { sound: state.noteSounds.E, soundName: "E" };
       case 12:
-        return state.noteSounds.F;
+        return { sound: state.noteSounds.F, soundName: "F" };
       case 13:
-        return state.noteSounds.Fs;
+        return { sound: state.noteSounds.Fs, soundName: "Fs" };
     }
   };
 
@@ -118,20 +125,23 @@ const Quiz = (props: QuizProps) => {
     // }
 
     for (let i = 0; i < 10; i++) {
+      const soundInfo: {
+        sound: HTMLAudioElement;
+        soundName: string;
+      } = ReturnRondomSound();
       const question = {
         id: i,
         // TODO: set random sound & sound name
-        sound: state.noteSounds.C,
-        soundName: "C",
+        sound: soundInfo.sound,
+        soundName: soundInfo.soundName,
       };
       quizData.questions.push(question);
     }
 
     setIsCreated(true);
-    return;
+    return quizData;
   };
 
-  console.log("Render Quiz component");
   return (
     <div className="quiz">
       <QuizTop></QuizTop>
