@@ -53,10 +53,7 @@ const Quiz = (props: QuizProps) => {
   }, []);
 
   const solveResult = () => {
-    console.log(quizData);
     if (quizData.questions[currentQuestionNumber - 1]) {
-      console.log(quizData.questions[0].soundName);
-
       if (
         state.pressedNote.pressedNote ===
         quizData.questions[currentQuestionNumber - 1].soundName
@@ -149,13 +146,24 @@ const Quiz = (props: QuizProps) => {
         ? setCurrentQuestionNumber(1)
         : setCurrentQuestionNumber(currentQuestionNumber - 1);
     }
-
-    console.log(currentQuestionNumber);
   };
 
-  return (
+  const returnCurrenQuestionSound = () => {
+    if (quizData.questions[currentQuestionNumber - 1]) {
+      return quizData.questions[currentQuestionNumber - 1].sound;
+    } else {
+      return state.noteSounds.C;
+    }
+  };
+
+  return isCreated ? (
     <div className="quiz">
-      <QuizTop currentQuestionNumber={currentQuestionNumber}></QuizTop>
+      <QuizTop
+        musicKey={quizData.keySoundName}
+        currentQuestionNumber={currentQuestionNumber}
+        mainSound={quizData.keySound}
+        questionSound={returnCurrenQuestionSound()}
+      ></QuizTop>
 
       {solveResult()}
 
@@ -179,6 +187,10 @@ const Quiz = (props: QuizProps) => {
           <ArrowRightIcon />
         </Fab>
       </div>
+    </div>
+  ) : (
+    <div>
+      <h1>Loading</h1>
     </div>
   );
 };

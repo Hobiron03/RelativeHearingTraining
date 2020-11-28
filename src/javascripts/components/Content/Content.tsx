@@ -13,10 +13,7 @@ const Content = () => {
   const [musicKey, setMusicKey] = useState<string>("C");
   const [isScreen, toggleScreen] = useState<boolean>(false);
 
-  console.log("Rennder Content");
-
   const onQuizStart = () => {
-    console.log(FetchSoundData());
     toggleScreen(true);
   };
 

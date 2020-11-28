@@ -8,11 +8,11 @@ import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import Slider from "@material-ui/core/Slider";
 
 interface QuizProps {
-  musicKey?: string;
+  musicKey: string;
   level?: string;
   currentQuestionNumber: number;
-  mainSound?: HTMLAudioElement;
-  questionSound?: HTMLAudioElement;
+  mainSound: HTMLAudioElement;
+  questionSound: HTMLAudioElement;
 }
 
 // const mockQuizProps: QuizProps = {
@@ -50,13 +50,12 @@ const QuizTop = (props: QuizProps) => {
   //   new Audio(`../../../medias/${mockQuizProps.musicKey}.wav`)
   // );
   const [mainSoundAudio, setMainSoundAudio] = useState<HTMLAudioElement>(
-    state.noteSounds.C
+    props.mainSound
   );
   const [
     questionSoundAudio,
     setQuestionSoundAudio,
-  ] = useState<HTMLAudioElement>(state.noteSounds.D);
-  console.log(state);
+  ] = useState<HTMLAudioElement>(props.questionSound);
 
   useEffect(() => {
     //クイズ開始
@@ -64,8 +63,8 @@ const QuizTop = (props: QuizProps) => {
   }, []);
 
   useEffect(() => {
-    setIsKeyNoteActive(false);
-    setIsQuizNoteActive(false);
+    console.log(questionSoundAudio === props.questionSound);
+    setQuestionSoundAudio(props.questionSound);
     QuizController();
   }, [props.currentQuestionNumber]);
 
@@ -105,6 +104,7 @@ const QuizTop = (props: QuizProps) => {
         defaultValue={1}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
+        value={props.currentQuestionNumber}
         step={1}
         marks
         min={1}
@@ -114,11 +114,13 @@ const QuizTop = (props: QuizProps) => {
         <h2>Level: {props.level}</h2>
         <h2>key: {props.musicKey} </h2>
       </div>
-      props
+
       <div className="quiz__sound">
         <div
           className={isKeyNoteActive ? classes.active : classes.nonactive}
-          onClick={PlayMainSound}
+          onClick={() => {
+            PlayMainSound();
+          }}
         >
           <Card className={classes.notecard}>
             <CardContent className={classes.note}>
@@ -132,7 +134,7 @@ const QuizTop = (props: QuizProps) => {
 
         <div
           className={isQuizNoteActive ? classes.active : classes.nonactive}
-          onClick={PlayQuestionSound}
+          onClick={() => PlayQuestionSound()}
         >
           <Card className={classes.notecard}>
             <CardContent className={classes.note}>

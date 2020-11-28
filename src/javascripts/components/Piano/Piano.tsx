@@ -80,8 +80,6 @@ const Piano = () => {
     null,
   ]);
 
-  console.log("Here is Pisno");
-
   return (
     <div className="piano">
       <div className="piano__black">
