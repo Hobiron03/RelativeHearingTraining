@@ -51,6 +51,8 @@ const Quiz = (props: QuizProps) => {
   const solveResult = () => {
     console.log("soloveRes");
     console.log(props.mainSound);
+    console.log(props.mainSound);
+
     if (state.pressedNote.pressedNote === "C") {
       return (
         <div>
@@ -68,6 +70,12 @@ const Quiz = (props: QuizProps) => {
     }
   };
 
+  // TODO：state.noteSoundsからランダムで音を選ぶ
+  const ReturnRondomSound = () => {
+    return;
+  };
+
+  // TODO: Quizデータを作る
   const CreateQuizData = (): QuizData => {
     const quizData = {
       keySound: state.noteSounds.C,
@@ -75,11 +83,20 @@ const Quiz = (props: QuizProps) => {
       questions: [],
     };
 
+    // interface Question {
+    //   id: number;
+    //   sound: HTMLAudioElement;
+    //   soundName: string;
+    // }
+
     for (let i = 0; i < 10; i++) {
       const question = {
         id: i,
+        // TODO: set random sound & sound name
+        sound: state.noteSound.C,
+        soundName: "C",
       };
-      quizData.questions.push();
+      quizData.questions.push(question);
     }
 
     setIsCreated(true);
