@@ -59,19 +59,27 @@ const QuizTop = (props: QuizProps) => {
 
   useEffect(() => {
     //クイズ開始
+    setIsKeyNoteActive(false);
+    setIsQuizNoteActive(false);
     QuizController();
   }, []);
 
   useEffect(() => {
-    console.log(questionSoundAudio === props.questionSound);
-    setQuestionSoundAudio(props.questionSound);
+    setIsKeyNoteActive(false);
+    setIsQuizNoteActive(false);
+    resetQuestionSound();
     QuizController();
   }, [props.currentQuestionNumber]);
+
+  const resetQuestionSound = () => {
+    setQuestionSoundAudio(props.questionSound);
+    return;
+  };
 
   const QuizController = () => {
     setTimeout(() => {
       PlayMainSound();
-      setTimeout(PlayQuestionSound, 1000);
+      setTimeout(() => PlayQuestionSound(), 1000);
     }, 1000);
   };
 
@@ -84,8 +92,12 @@ const QuizTop = (props: QuizProps) => {
     }
   };
 
-  const PlayQuestionSound = () => {
+  // BUG：propsは正しく渡っているが、questionSoundAudioに反映されていない
+  const PlayQuestionSound = async () => {
     setIsQuizNoteActive(true);
+    console.log("PlayQuestionSound");
+    console.log(props.questionSound);
+    await resetQuestionSound();
     if (questionSoundAudio.paused) {
       questionSoundAudio.play();
     } else {

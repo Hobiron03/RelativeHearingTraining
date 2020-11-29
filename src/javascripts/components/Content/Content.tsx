@@ -30,7 +30,7 @@ const Content = () => {
       <Card>
         <CardContent>
           {isScreen ? (
-            <Quiz level={level}></Quiz>
+            <Quiz></Quiz>
           ) : (
             <Config
               onQuizStart={onQuizStart}

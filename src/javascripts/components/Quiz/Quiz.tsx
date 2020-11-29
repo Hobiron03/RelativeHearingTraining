@@ -16,8 +16,8 @@ import "./Quiz.scss";
 import noteSounds from "src/javascripts/reducers/NoteSound.js";
 
 interface QuizProps {
-  musicKeyName: string;
-  level: string;
+  musicKeyName?: string;
+  level?: string;
 
   currentQuestion?: number;
   mainSound?: HTMLAudioElement;
@@ -39,6 +39,10 @@ const Quiz = (props: QuizProps) => {
   const { state, dispatch } = useContext(AppContext);
   const [isCreated, setIsCreated] = useState<boolean>(false);
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(1);
+  // const [
+  //   currentQuestionSound,
+  //   setCurrentQuestionSound,
+  // ] = useState<HTMLAudioElement>();
   const [quizData, setQuizData] = useState<QuizData>({
     keySound: state.noteSounds.C,
     keySoundName: "C",
@@ -46,10 +50,13 @@ const Quiz = (props: QuizProps) => {
   });
 
   useEffect(() => {
-    const init = async () => {
-      await setQuizData(CreateQuizData());
+    const init = () => {
+      setQuizData(CreateQuizData());
     };
     init();
+    // if (quizData.questions[0]) {
+    //   setCurrentQuestionSound(quizData.questions[0].sound);
+    // }
   }, []);
 
   const solveResult = () => {
@@ -77,7 +84,10 @@ const Quiz = (props: QuizProps) => {
 
   // TODO：state.noteSoundsからランダムで音を選ぶ
   // TODO2: コードをリファクタリングする
-  const ReturnRondomSound = () => {
+  const ReturnRondomSound = (): {
+    sound: HTMLAudioElement;
+    soundName: string;
+  } => {
     const randomNum = Math.floor(Math.random() * (13 - 1) + 1);
     switch (randomNum) {
       case 1:
@@ -109,7 +119,7 @@ const Quiz = (props: QuizProps) => {
     }
   };
 
-  // TODO: Quizデータを作る
+  // TODO: Quizデータを作る処理を実装
   const CreateQuizData = (): QuizData => {
     const quizData = {
       keySound: state.noteSounds.C,
@@ -124,7 +134,6 @@ const Quiz = (props: QuizProps) => {
       } = ReturnRondomSound();
       const question = {
         id: i,
-        // TODO: set random sound & sound name
         sound: soundInfo.sound,
         soundName: soundInfo.soundName,
       };
@@ -141,10 +150,12 @@ const Quiz = (props: QuizProps) => {
       currentQuestionNumber === 10
         ? setCurrentQuestionNumber(10)
         : setCurrentQuestionNumber(currentQuestionNumber + 1);
+      // setCurrentQuestionSound(returnCurrenQuestionSound());
     } else {
       currentQuestionNumber === 1
         ? setCurrentQuestionNumber(1)
         : setCurrentQuestionNumber(currentQuestionNumber - 1);
+      // setCurrentQuestionSound(returnCurrenQuestionSound());
     }
   };
 
@@ -160,9 +171,9 @@ const Quiz = (props: QuizProps) => {
     <div className="quiz">
       <QuizTop
         musicKey={quizData.keySoundName}
+        questionSound={returnCurrenQuestionSound()}
         currentQuestionNumber={currentQuestionNumber}
         mainSound={quizData.keySound}
-        questionSound={returnCurrenQuestionSound()}
       ></QuizTop>
 
       {solveResult()}
