@@ -15,14 +15,6 @@ interface QuizProps {
   questionSound: HTMLAudioElement;
 }
 
-// const mockQuizProps: QuizProps = {
-//   musicKey: "C",
-//   level: "初級",
-//   currentQuestionNumber: 3,
-//   // mainSound?: HTMLAudioElement,
-//   // questionSound?: HTMLAudioElement
-// };
-
 const useStyles = makeStyles({
   notecard: {
     width: 110,
@@ -69,7 +61,7 @@ const QuizTop = (props: QuizProps) => {
     setIsQuizNoteActive(false);
     resetQuestionSound();
     QuizController();
-  }, [props.currentQuestionNumber]);
+  }, [props.questionSound]);
 
   const resetQuestionSound = () => {
     setQuestionSoundAudio(props.questionSound);
@@ -97,7 +89,8 @@ const QuizTop = (props: QuizProps) => {
     setIsQuizNoteActive(true);
     console.log("PlayQuestionSound");
     console.log(props.questionSound);
-    await resetQuestionSound();
+    resetQuestionSound();
+
     if (questionSoundAudio.paused) {
       questionSoundAudio.play();
     } else {
@@ -111,7 +104,6 @@ const QuizTop = (props: QuizProps) => {
           Quiz: {props.currentQuestionNumber}
         </h2>
       </div>
-      {/* TODO: Sliderの値を変更する処理をかく */}
       <Slider
         defaultValue={1}
         aria-labelledby="discrete-slider"

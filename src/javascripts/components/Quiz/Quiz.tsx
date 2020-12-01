@@ -12,8 +12,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import Slider from "@material-ui/core/Slider";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import ClearIcon from "@material-ui/icons/Clear";
 import "./Quiz.scss";
 import noteSounds from "src/javascripts/reducers/NoteSound.js";
+import { SET_PRESSED_NOTE } from "../../actions/index";
 
 interface QuizProps {
   musicKeyName?: string;
@@ -39,10 +42,6 @@ const Quiz = (props: QuizProps) => {
   const { state, dispatch } = useContext(AppContext);
   const [isCreated, setIsCreated] = useState<boolean>(false);
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(1);
-  // const [
-  //   currentQuestionSound,
-  //   setCurrentQuestionSound,
-  // ] = useState<HTMLAudioElement>();
   const [quizData, setQuizData] = useState<QuizData>({
     keySound: state.noteSounds.C,
     keySoundName: "C",
@@ -57,6 +56,10 @@ const Quiz = (props: QuizProps) => {
     // if (quizData.questions[0]) {
     //   setCurrentQuestionSound(quizData.questions[0].sound);
     // }
+    dispatch({
+      type: SET_PRESSED_NOTE,
+      pressedNote: "",
+    });
   }, []);
 
   const solveResult = () => {
@@ -66,18 +69,24 @@ const Quiz = (props: QuizProps) => {
         quizData.questions[currentQuestionNumber - 1].soundName
       ) {
         return (
-          <div>
+          <div className="quiz__correct">
             <p>正解！！！</p>
+            <RadioButtonUncheckedIcon
+              fontSize="large"
+              color="secondary"
+            ></RadioButtonUncheckedIcon>
           </div>
         );
-      } else if (state.pressedNote !== "") {
-        return (
-          <div>
-            <p>matigai</p>
-          </div>
-        );
-      } else {
+      } else if (state.pressedNote.pressedNote == "") {
+        console.log("hello");
         return;
+      } else {
+        return (
+          <div className="quiz__correct">
+            <p>不正解...</p>
+            <ClearIcon fontSize="large" color="primary"></ClearIcon>
+          </div>
+        );
       }
     }
   };
@@ -123,7 +132,7 @@ const Quiz = (props: QuizProps) => {
   const CreateQuizData = (): QuizData => {
     const quizData = {
       keySound: state.noteSounds.C,
-      keySoundName: props.musicKeyName,
+      keySoundName: "C",
       questions: [],
     };
 
@@ -151,6 +160,10 @@ const Quiz = (props: QuizProps) => {
         ? setCurrentQuestionNumber(10)
         : setCurrentQuestionNumber(currentQuestionNumber + 1);
       // setCurrentQuestionSound(returnCurrenQuestionSound());
+      dispatch({
+        type: SET_PRESSED_NOTE,
+        pressedNote: "",
+      });
     } else {
       currentQuestionNumber === 1
         ? setCurrentQuestionNumber(1)
@@ -171,6 +184,7 @@ const Quiz = (props: QuizProps) => {
     <div className="quiz">
       <QuizTop
         musicKey={quizData.keySoundName}
+        level={"初級"}
         questionSound={returnCurrenQuestionSound()}
         currentQuestionNumber={currentQuestionNumber}
         mainSound={quizData.keySound}
