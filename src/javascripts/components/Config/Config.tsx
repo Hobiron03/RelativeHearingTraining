@@ -60,7 +60,7 @@ const Config = (props: ConfigProps) => {
         キーの主音（KeyがCならド）と、もう１つ別の音が鳴ります。主音の音を手掛かりにどの音か当ててみてください。
       </p>
       <div className="config__key-setting">
-        <h2>設定</h2>
+        <h2>設定（現在はKey=C、初級のみ利用可能）</h2>
         <h3>Key: {musicKey}</h3>
         <div className="config__key-setting__button">
           {musicKeys.map((mk, index) => {

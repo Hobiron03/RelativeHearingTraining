@@ -21,7 +21,7 @@ interface QuizProps {
   questionSound?: HTMLAudioElement;
   onQuizEnd: () => void;
 }
-//ここでクイズを作っておく？
+
 interface Question {
   id: number;
   sound: HTMLAudioElement;
@@ -178,7 +178,7 @@ const Quiz = (props: QuizProps) => {
   //矢印ボタンを押すと次の問題に進むgo or 前に戻るback
   const ChagneQuestion = (dirction: string) => {
     if (dirction === "go") {
-      // setIsAnswered(false);
+      setIsAnswered(false);
       if (currentQuestionNumber === 10) {
         //go to result
         setIsShowResult(true);
