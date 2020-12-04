@@ -10,6 +10,7 @@ import Slider from "@material-ui/core/Slider";
 interface QuizProps {
   musicKey: string;
   level?: string;
+  mistakeNumber: number;
   currentQuestionNumber: number;
   mainSound: HTMLAudioElement;
   questionSound: HTMLAudioElement;
@@ -103,6 +104,7 @@ const QuizTop = (props: QuizProps) => {
         <h2 className="quiz__header__title">
           Quiz: {props.currentQuestionNumber}
         </h2>
+        <h2 className="quiz__header__title">miss: {props.mistakeNumber}</h2>
       </div>
       <Slider
         defaultValue={1}

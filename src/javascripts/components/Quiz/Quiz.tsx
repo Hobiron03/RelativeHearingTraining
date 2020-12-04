@@ -6,16 +6,9 @@ import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import MusicNoteIcon from "@material-ui/icons/MusicNote";
-import Slider from "@material-ui/core/Slider";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import ClearIcon from "@material-ui/icons/Clear";
 import "./Quiz.scss";
-import noteSounds from "src/javascripts/reducers/NoteSound.js";
 import { SET_PRESSED_NOTE } from "../../actions/index";
 
 interface QuizProps {
@@ -42,6 +35,8 @@ const Quiz = (props: QuizProps) => {
   const { state, dispatch } = useContext(AppContext);
   const [isCreated, setIsCreated] = useState<boolean>(false);
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(1);
+  const [isAnswered, setIsAnswered] = useState<boolean>(false);
+  const [mistakeNumber, setMistakeNumber] = useState<number>(0);
   const [quizData, setQuizData] = useState<QuizData>({
     keySound: state.noteSounds.C,
     keySoundName: "C",
@@ -53,14 +48,36 @@ const Quiz = (props: QuizProps) => {
       setQuizData(CreateQuizData());
     };
     init();
-    // if (quizData.questions[0]) {
-    //   setCurrentQuestionSound(quizData.questions[0].sound);
-    // }
+
     dispatch({
       type: SET_PRESSED_NOTE,
       pressedNote: "",
     });
   }, []);
+
+  useEffect(() => {
+    CheckAnswer();
+  }, [state.pressedNote.pressedNote]);
+
+  const CheckAnswer = () => {
+    if (quizData.questions[currentQuestionNumber - 1]) {
+      if (
+        state.pressedNote.pressedNote ===
+        quizData.questions[currentQuestionNumber - 1].soundName
+      ) {
+        //正解
+        console.log("正解");
+        setIsAnswered(true);
+      } else if (state.pressedNote.pressedNote == "") {
+        //回答なし
+        console.log("回答なし");
+      } else {
+        //不正解
+        console.log("不正解");
+        setMistakeNumber(mistakeNumber + 1);
+      }
+    }
+  };
 
   const solveResult = () => {
     if (quizData.questions[currentQuestionNumber - 1]) {
@@ -78,7 +95,6 @@ const Quiz = (props: QuizProps) => {
           </div>
         );
       } else if (state.pressedNote.pressedNote == "") {
-        console.log("hello");
         return;
       } else {
         return (
@@ -91,8 +107,6 @@ const Quiz = (props: QuizProps) => {
     }
   };
 
-  // TODO：state.noteSoundsからランダムで音を選ぶ
-  // TODO2: コードをリファクタリングする
   const ReturnRondomSound = (): {
     sound: HTMLAudioElement;
     soundName: string;
@@ -156,10 +170,12 @@ const Quiz = (props: QuizProps) => {
   //矢印ボタンを押すと次の問題に進むgo or 前に戻るback
   const ChagneQuestion = (dirction: string) => {
     if (dirction === "go") {
-      currentQuestionNumber === 10
-        ? setCurrentQuestionNumber(10)
-        : setCurrentQuestionNumber(currentQuestionNumber + 1);
-      // setCurrentQuestionSound(returnCurrenQuestionSound());
+      setIsAnswered(false);
+      if (currentQuestionNumber === 10) {
+        //go to result
+      } else {
+        setCurrentQuestionNumber(currentQuestionNumber + 1);
+      }
       dispatch({
         type: SET_PRESSED_NOTE,
         pressedNote: "",
@@ -169,6 +185,10 @@ const Quiz = (props: QuizProps) => {
         ? setCurrentQuestionNumber(1)
         : setCurrentQuestionNumber(currentQuestionNumber - 1);
       // setCurrentQuestionSound(returnCurrenQuestionSound());
+      dispatch({
+        type: SET_PRESSED_NOTE,
+        pressedNote: "",
+      });
     }
   };
 
@@ -185,6 +205,7 @@ const Quiz = (props: QuizProps) => {
       <QuizTop
         musicKey={quizData.keySoundName}
         level={"初級"}
+        mistakeNumber={mistakeNumber}
         questionSound={returnCurrenQuestionSound()}
         currentQuestionNumber={currentQuestionNumber}
         mainSound={quizData.keySound}
@@ -208,6 +229,7 @@ const Quiz = (props: QuizProps) => {
           color="primary"
           aria-label="go"
           onClick={() => ChagneQuestion("go")}
+          disabled={!isAnswered}
         >
           <ArrowRightIcon />
         </Fab>
