@@ -18,6 +18,7 @@ interface QuizProps {
   currentQuestion?: number;
   mainSound?: HTMLAudioElement;
   questionSound?: HTMLAudioElement;
+  onQuizEnd: () => void;
 }
 //ここでクイズを作っておく？
 interface Question {
@@ -36,6 +37,7 @@ const Quiz = (props: QuizProps) => {
   const [isCreated, setIsCreated] = useState<boolean>(false);
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(1);
   const [isAnswered, setIsAnswered] = useState<boolean>(false);
+  const [isShowResult, setIsShowResult] = useState<boolean>(false);
   const [mistakeNumber, setMistakeNumber] = useState<number>(0);
   const [quizData, setQuizData] = useState<QuizData>({
     keySound: state.noteSounds.C,
@@ -66,14 +68,11 @@ const Quiz = (props: QuizProps) => {
         quizData.questions[currentQuestionNumber - 1].soundName
       ) {
         //正解
-        console.log("正解");
         setIsAnswered(true);
       } else if (state.pressedNote.pressedNote == "") {
         //回答なし
-        console.log("回答なし");
       } else {
         //不正解
-        console.log("不正解");
         setMistakeNumber(mistakeNumber + 1);
       }
     }
@@ -170,9 +169,11 @@ const Quiz = (props: QuizProps) => {
   //矢印ボタンを押すと次の問題に進むgo or 前に戻るback
   const ChagneQuestion = (dirction: string) => {
     if (dirction === "go") {
-      setIsAnswered(false);
+      // setIsAnswered(false);
       if (currentQuestionNumber === 10) {
         //go to result
+        setIsShowResult(true);
+        console.log();
       } else {
         setCurrentQuestionNumber(currentQuestionNumber + 1);
       }
@@ -197,6 +198,14 @@ const Quiz = (props: QuizProps) => {
       return quizData.questions[currentQuestionNumber - 1].sound;
     } else {
       return state.noteSounds.C;
+    }
+  };
+
+  const ShowResult = () => {
+    if (isShowResult) {
+      return <p>End</p>;
+    } else {
+      return;
     }
   };
 
@@ -234,6 +243,7 @@ const Quiz = (props: QuizProps) => {
           <ArrowRightIcon />
         </Fab>
       </div>
+      {ShowResult()}
     </div>
   ) : (
     <div>

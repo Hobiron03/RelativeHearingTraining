@@ -17,6 +17,10 @@ const Content = () => {
     toggleScreen(true);
   };
 
+  const onQuizEnd = () => {
+    toggleScreen(false);
+  };
+
   const onSetLevel = (level: string) => {
     setLevel(level);
   };
@@ -30,7 +34,7 @@ const Content = () => {
       <Card>
         <CardContent>
           {isScreen ? (
-            <Quiz></Quiz>
+            <Quiz onQuizEnd={onQuizEnd}></Quiz>
           ) : (
             <Config
               onQuizStart={onQuizStart}
