@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import AppContext from "../../contexts/AppContext.js";
 import Piano from "../Piano/Piano";
 import QuizTop from "../QuizTop/QuizTop";
+import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 import Fab from "@material-ui/core/Fab";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
@@ -60,6 +61,14 @@ const Quiz = (props: QuizProps) => {
   useEffect(() => {
     CheckAnswer();
   }, [state.pressedNote.pressedNote]);
+
+  const handleShowResult = () => {
+    setIsShowResult(true);
+  };
+
+  const handleCloseResult = () => {
+    setIsShowResult(false);
+  };
 
   const CheckAnswer = () => {
     if (quizData.questions[currentQuestionNumber - 1]) {
@@ -201,9 +210,41 @@ const Quiz = (props: QuizProps) => {
     }
   };
 
+  const adviceMessage = () => {
+    if (mistakeNumber === 0) {
+      return <h2>完璧だね! 次のレベルに挑戦しよう</h2>;
+    } else {
+      return <h2>完璧になるまで何度も挑戦しよう！！</h2>;
+    }
+  };
+
+  const resultBody = (
+    <div className="result-modal">
+      <h1>結果発表</h1>
+      <div>
+        <h2>間違えた回数：{mistakeNumber}</h2>
+      </div>
+      {adviceMessage()}
+      <Button variant="contained" color="primary" onClick={props.onQuizEnd}>
+        トップページに戻る
+      </Button>
+    </div>
+  );
+
   const ShowResult = () => {
     if (isShowResult) {
-      return <p>End</p>;
+      return (
+        <div>
+          <Modal
+            open={isShowResult}
+            onClose={handleCloseResult}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+            {resultBody}
+          </Modal>
+        </div>
+      );
     } else {
       return;
     }
