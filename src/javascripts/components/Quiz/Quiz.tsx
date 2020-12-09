@@ -150,7 +150,6 @@ const Quiz = (props: QuizProps) => {
     }
   };
 
-  // TODO: Quizデータを作る処理を実装
   const CreateQuizData = (): QuizData => {
     const quizData = {
       keySound: state.noteSounds.C,
@@ -175,7 +174,6 @@ const Quiz = (props: QuizProps) => {
     return quizData;
   };
 
-  //矢印ボタンを押すと次の問題に進むgo or 前に戻るback
   const ChagneQuestion = (dirction: string) => {
     if (dirction === "go") {
       setIsAnswered(false);
